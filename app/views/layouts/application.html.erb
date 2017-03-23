@@ -9,6 +9,26 @@
   </head>
 
   <body>
+
+  <%= link_to 'Pairbnb', "/" %> 
+  <!--  $ rails generate clearance:install -->
+    <% if signed_in? %>
+      <%= current_user.email %>
+      <%= link_to "Profile", user_path(current_user.id)  %>
+      <%= button_to 'Sign out', sign_out_path, method: :delete %>
+    <% else %>
+      <%= link_to 'Sign in', sign_in_path %>      
+      <%= link_to "Sign Up", sign_up_path %>
+    <% end %>
+
+    <div id="flash">
+      <% flash.each do |key, value| %>
+        <div class="flash <%= key %>"><%= value %></div>
+      <% end %>
+    </div>
+  <!-- stop -->
+
+
     <%= yield %>
   </body>
 </html>

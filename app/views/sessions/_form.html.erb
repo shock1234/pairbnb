@@ -1,0 +1,10 @@
+<%= form_for :session, url: session_path do |form| %>
+
+  <%= form.label :email %><br/>
+  <%= form.text_field :email, type: 'email'%><br/>
+  <%= form.label :password %><br/>
+  <%= form.password_field :password%><br/>
+  <%= form.submit%>
+  <%= link_to t(".forgot_password"), new_password_path %>
+
+<% end %>
