@@ -1,0 +1,21 @@
+<h2><%= current_user.name %>'s Listings</h2>
+
+
+<% @listing.each do |list| %>
+	<p><a href="/listings/<%= list.id %>">Title: <%= list.name %></a></p>
+	<% for att in list.attributes.except("created_at", "updated_at", "id", "user_id", "name").keys %>
+		<p><%= att.humanize %>: <%= list.attributes[att].to_s %></p>
+	<% end %>
+	<%= link_to 'Edit Listing', edit_listing_path(list) %>
+	<%= button_to "Delete Listing", listing_path(list), method: :delete, data: {confirm: 'Are you sure?'} %>
+<% end %>
+
+
+
+
+
+
+
+
+
+

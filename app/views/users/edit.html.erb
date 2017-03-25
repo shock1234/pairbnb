@@ -1,0 +1,5 @@
+<h2>Edit User Profile</h2>
+
+<%= render '/users/edit' %>
+
+<%= button_to "Delete Account", user_path(@user), method: :delete, data: {confirm: 'Are you sure?'} %>

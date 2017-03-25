@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170322035839) do
+ActiveRecord::Schema.define(version: 20170323100902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,41 @@ ActiveRecord::Schema.define(version: 20170322035839) do
     t.index ["user_id"], name: "index_authentications_on_user_id", using: :btree
   end
 
+  create_table "listing_tags", force: :cascade do |t|
+    t.integer  "tag_id"
+    t.integer  "listing_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["listing_id"], name: "index_listing_tags_on_listing_id", using: :btree
+    t.index ["tag_id"], name: "index_listing_tags_on_tag_id", using: :btree
+  end
+
+  create_table "listings", force: :cascade do |t|
+    t.string   "name"
+    t.string   "place_type"
+    t.string   "property_type"
+    t.integer  "room_number"
+    t.integer  "bed_number"
+    t.integer  "guest_number"
+    t.string   "country"
+    t.string   "state"
+    t.string   "city"
+    t.string   "zipcode"
+    t.string   "address"
+    t.integer  "price"
+    t.string   "description"
+    t.integer  "user_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["user_id"], name: "index_listings_on_user_id", using: :btree
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
@@ -33,6 +68,12 @@ ActiveRecord::Schema.define(version: 20170322035839) do
     t.string   "confirmation_token", limit: 128
     t.string   "remember_token",     limit: 128, null: false
     t.string   "name"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "gender"
+    t.string   "phone"
+    t.string   "country"
+    t.date     "birthday"
     t.index ["email"], name: "index_users_on_email", using: :btree
     t.index ["remember_token"], name: "index_users_on_remember_token", using: :btree
   end

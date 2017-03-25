@@ -1,18 +1,29 @@
 <%= form_for @user do |form| %>
 
-	<%= form.label :email %>
-	<%= form.text_field :email, type: 'email' %>
+	<%= form.label :email %><br/>
+	<%= form.text_field :email, type: 'email', :value => @user.email %><br/>
 
-	<%= form.label :password %>
-	<%= form.password_field :password %>
+	<%= form.label :username %><br/>
+	<%= form.text_field :name, :value => @user.name %><br/>	
 
-	<%= form.file_field :image %><br>
+	<%= form.label :first_name %><br/>	
+	<%= form.text_field :first_name, :value => @user.first_name %><br/>	
 
-	<label>
-		<%= form.check_box :remove_image %>
-		Remove Profile Picture
-	</label><br>
-	
+	<%= form.label :last_name %><br/>
+	<%= form.text_field :last_name, :value => @user.last_name %><br/>	
+
+	<%= form.label :gender %><br/>
+	<%= form.text_field :gender, :value => @user.gender %><br/>	
+
+	<%= form.label :phone %><br/>
+	<%= form.text_field :phone, :value => @user.phone %><br/>	
+
+	<%= form.label :country %><br/>
+	<%= form.text_field :country, :value => @user.country %><br/>	
+
+	<%= form.label :birthday %><br/>
+	<%= form.text_field :birthday, :value => @user.birthday %><br/>	
+
 	<%= form.submit %>
 
 <% end %>

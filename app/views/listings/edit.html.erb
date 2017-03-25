@@ -1,0 +1,5 @@
+<h2>Edit Listing</h2>
+
+<%= render '/listings/edit' %>
+
+<%= button_to "Delete Listing", listing_path(@listing), method: :delete, data: {confirm: 'Are you sure?'} %>

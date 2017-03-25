@@ -1,0 +1,6 @@
+
+	<% for att in @listing.attributes.except("created_at", "updated_at", "id", "user_id").keys %>
+		<p><%= att.humanize %>: <%= @listing.attributes[att].to_s %></p>
+	<% end %>
+	<%= link_to 'Edit Listing', edit_listing_path(@listing) %>
+	<%= button_to "Delete Listing", listing_path(@listing), method: :delete, data: {confirm: 'Are you sure?'} %>
