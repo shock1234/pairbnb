@@ -3,10 +3,14 @@ class ListingsController < ApplicationController
 
 
   def index
-    if !params.nil?
-    @listing = current_user.listing
+    if params[:id].nil?
+      @listings = Listing.all
+      @message = 'All Listings'
+    else
+      @listings = Listing.where(user_id: params[:id])
+      @message = "#{User.find(params[:id]).name}\'s Listings"
     end
-
+    @listings = @listings.paginate(:page => params[:page], :per_page => 10).order('updated_at DESC')  
   end
 
   def new
@@ -14,6 +18,7 @@ class ListingsController < ApplicationController
   end
 
   def show
+    @user = User.find(@listing.user_id)
   end
 
   def create

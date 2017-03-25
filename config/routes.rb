@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
 
-  root 'home#index'
+  root 'listings#index'
 
   get "/sign_in" => "clearance/sessions#new", as: "sign_in"
   delete "/sign_out" => "clearance/sessions#destroy", as: "sign_out"
@@ -24,8 +24,6 @@ Rails.application.routes.draw do
 
 
   get '/users/:id/listings' => 'listings#index', as: "user_listings"
-
-  get '/listings/:id' => 'listings#show'
 
 
 
