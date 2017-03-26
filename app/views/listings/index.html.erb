@@ -8,12 +8,14 @@
 	<%= link_to list.name, listing_path(list) %>
 	<% for att in list.attributes.except("created_at", "id", "user_id", "name").keys %>
 		<p><%= att.humanize %>: <%= list.attributes[att].to_s %></p>
+		<% if logged_in? %>
+			<% if current_user.id == list.user_id %>
+				<%= link_to 'Edit Listing', edit_listing_path(list) %>
+				<%= button_to "Delete Listing", listing_path(list), method: :delete, data: {confirm: 'Are you sure?'} %>
+			<% end %>
+		<% end %>
 	<% end %>
-	<% if current_user.id == list.user_id %>
-	<%= link_to 'Edit Listing', edit_listing_path(list) %>
-	<%= button_to "Delete Listing", listing_path(list), method: :delete, data: {confirm: 'Are you sure?'} %>
-	<% end %>
-<% end %>
+<% end %>	
 <hr>
 
 
