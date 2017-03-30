@@ -20,6 +20,9 @@ gem 'omniauth-facebook'
 #paginate
 gem 'will_paginate', '~> 3.1.0'
 
+#braintree payment
+gem 'braintree'
+
 #file upload
 gem 'carrierwave', '~> 1.0'
 #adding different versions for the same file (e.g. thumbnails)

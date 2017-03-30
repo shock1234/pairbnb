@@ -26,7 +26,8 @@
 	    </div>
         <div class='col-md-4'>
 		    <div class="form-group"> <!-- Submit button -->
-		        <!-- <button class="btn btn-primary " name="submit" type="submit">Submit</button> -->
+		    	<%= form.label :guests_number %>
+		    	<%= form.number_field :num_guests, min: 1 %>
 		        <%= form.hidden_field :listing_id, value: @listing.id %>
 		        <%= form.submit "submit" %>
 		    </div>
@@ -38,7 +39,7 @@
     $(function () {
         $('#listing_booking_start').datetimepicker({
         	format: 'dddd, MMMM Do, YYYY',
-        	useCurrent: false, //remove will cause auto fill with current date
+        	useCurrent: true, //remove will cause auto fill with current date
         	showTodayButton: true,
         	collapse: true,
         });

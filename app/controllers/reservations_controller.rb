@@ -1,11 +1,12 @@
 class ReservationsController < ApplicationController
-
+	before_action :set_reservation, only: [:show, :destroy]
 
 	def create
 		@reservation = current_user.reservations.new(reservation_params)
 		if @reservation.save
 			flash[:notice] = "successful"
-			redirect_to current_user
+			# redirect_to @reservation.user #redirect to user profile
+			redirect_to reservation_path(@reservation) #redirec to reservation#show
 		else
 			flash[:notice] = @reservation.errors.full_messages
 			redirect_to :back
@@ -18,22 +19,44 @@ class ReservationsController < ApplicationController
 	end
 
 	def show
+		@client_token = Braintree::ClientToken.generate
 	end
 
 	def destroy
+		@reservation.destroy
+		redirect_to :back
 	end
+
+	def checkout
+		nonce_form_the_client = params[:checkout_form][:payment_method_nonce]
+
+		result = Braintree::Transaction.sale(
+			amount: "#{@reservation.total_price}",
+			payment_method_nonce: nonce_form_the_client,
+			options: {
+				submit_for_settlement: true
+			}
+			)
+		if result.success?
+			@reservation.update(payment_status: 1)
+			redirect_to :root, flash: { success: "Transaction successful!" }
+		else
+			redirect_to :root, flash: { error: "Transaction failed. Please try again." }
+		end
+
+	end
+
+
+
+
 
 	private
 
 	def reservation_params
-		params.require(:reservation).permit(:listing_id, :booking_start, :booking_end)
+		params.require(:reservation).permit(:listing_id, :booking_start, :booking_end, :num_guests)
 	end
 
-	def find_listing
-		@listing = Listing.find(params[:listing_id])
-	end
-
-	def find_reservation
+	def set_reservation
 		@reservation = Reservation.find(params[:id])
 	end
 

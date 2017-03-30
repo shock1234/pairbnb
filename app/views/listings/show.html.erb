@@ -1,8 +1,9 @@
+	<%= render 'reservations/form' %>
 	<p>Listed by: <%= link_to @user.name, user_listings_path(@user)%></p>
 	<% for att in @listing.attributes.except("created_at", "updated_at", "id", "user_id", "images").keys %>
 		<p><%= att.humanize %>: <%= @listing.attributes[att].to_s %></p>
 	<% end %>
-	<%= render 'reservations/form' %>
+	
 
     <% @listing.images.each do |image| %>
     <%= image_tag(image.url) %>
@@ -11,7 +12,9 @@
 
 	<% if current_user.id == @listing.user_id %>
 	<%= link_to 'Edit Listing', edit_listing_path(@listing) %>
-	<%= button_to "Delete Listing", listing_path(@listing), method: :delete, data: {confirm: 'Are you sure?'} %>
+	<%= button_to "Delete Listing", listing_path(@listing), method: :delete, data: {confirm: 'Are you sure?'} %> <!--it works-->
+	<%= button_to "Delete Listing", listing_path(@listing), method: "delete", 'data-confirm' => 'Are you sure?' %> <!--it works-->
+
 	<% end %>
 
 
