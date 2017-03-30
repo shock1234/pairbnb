@@ -1,0 +1,71 @@
+
+
+<div class="container">
+	<!-- Form code begins -->
+    <!-- <form method="post"> -->
+	<%= form_for @reservation do |form| %>
+    	<div class='col-md-4'>
+	        <div class="form-group">
+	            <div class='input-group date' id='listing_booking_start'>
+	                <input type='text' class="form-control" id="booking_start" name="reservation[booking_start]" placeholder="Check In" />
+	                <span class="input-group-addon">
+	                    <span class="glyphicon glyphicon-calendar"></span>
+	                </span>
+	            </div>
+	        </div>
+	    </div>
+	    <div class='col-md-4'>
+	        <div class="form-group">
+	            <div class='input-group date' id='listing_booking_end'>
+	                <input type='text' class="form-control" id="booking_end" name="reservation[booking_end]" placeholder="Check Out" />
+	                <span class="input-group-addon">
+	                    <span class="glyphicon glyphicon-calendar"></span>
+	                </span>
+	            </div>
+	        </div>
+	    </div>
+        <div class='col-md-4'>
+		    <div class="form-group"> <!-- Submit button -->
+		        <!-- <button class="btn btn-primary " name="submit" type="submit">Submit</button> -->
+		        <%= form.hidden_field :listing_id, value: @listing.id %>
+		        <%= form.submit "submit" %>
+		    </div>
+	    </div>
+    <!-- </form> -->
+    <% end %>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#listing_booking_start').datetimepicker({
+        	format: 'dddd, MMMM Do, YYYY',
+        	useCurrent: false, //remove will cause auto fill with current date
+        	showTodayButton: true,
+        	collapse: true,
+        });
+        $('#listing_booking_end').datetimepicker({
+            format: 'dddd, MMMM Do, YYYY',
+            useCurrent: false,
+            showTodayButton: true, 
+        	collapse: true,
+        });
+        $("#listing_booking_start").on("dp.change", function (e) {
+            $('#listing_booking_end').data("DateTimePicker").minDate(e.date);
+        });
+        $("#listing_booking_end").on("dp.change", function (e) {
+            $('#listing_booking_start').data("DateTimePicker").maxDate(e.date);
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+

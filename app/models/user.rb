@@ -3,6 +3,8 @@ class User < ApplicationRecord
   # before_action :require_login  #clearance
   has_many :authentications, :dependent => :destroy
   has_many :listing
+  has_many :reservations
+  mount_uploader :avatar, AvatarUploader
 
 
   def self.create_with_auth_and_hash(authentication, auth_hash)

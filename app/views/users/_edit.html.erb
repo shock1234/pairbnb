@@ -1,5 +1,11 @@
 <%= form_for @user do |form| %>
 
+ 	<label>My Avatar</label><br/>
+ 	<%= image_tag(@user.avatar.thumb.url) if @user.avatar? %><br/>
+ 	<%= form.file_field :avatar %><br/>
+ 	<%= form.hidden_field :avatar_cache %>
+
+
 	<%= form.label :email %><br/>
 	<%= form.text_field :email, type: 'email', :value => @user.email %><br/>
 

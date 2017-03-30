@@ -19,6 +19,7 @@ class ListingsController < ApplicationController
 
   def show
     @user = User.find(@listing.user_id)
+    @reservation = Reservation.new
   end
 
   def create
@@ -48,7 +49,7 @@ class ListingsController < ApplicationController
   end
 
   def listing_params
-    params.require(:listing).permit(:name, :place_type, :property_type, :room_number, :bed_number, :guest_number, :country, :state, :city, :zipcode, :address, :price, :description)
+    params.require(:listing).permit(:name, :place_type, :property_type, :room_number, :bed_number, :guest_number, :country, :state, :city, :zipcode, :address, :price, :description, {images: []})
   end
 
 end

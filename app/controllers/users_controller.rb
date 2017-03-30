@@ -27,7 +27,7 @@ class UsersController < Clearance::UsersController
 	#strong parameters permits long_url to be exposed, no authenticity token
 	#<ActionController::Parameters {"long_url"=>"nutrivelo.com"} permitted: true>
 	def user_params
-		params.require(:user).permit(:email, :password, :name, :first_name, :last_name, :gender, :phone, :country, :birthday)
+		params.require(:user).permit(:email, :password, :name, :first_name, :last_name, :gender, :phone, :country, :birthday, :avatar)
 	end
 
 end

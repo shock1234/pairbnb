@@ -6,13 +6,16 @@
 <% @listings.each do |list| %>
 	<hr>
 	<%= link_to list.name, listing_path(list) %>
-	<% for att in list.attributes.except("created_at", "id", "user_id", "name").keys %>
+	<% for att in list.attributes.except("created_at", "id", "user_id", "name", "images").keys %>
 		<p><%= att.humanize %>: <%= list.attributes[att].to_s %></p>
-		<% if logged_in? %>
-			<% if current_user.id == list.user_id %>
-				<%= link_to 'Edit Listing', edit_listing_path(list) %>
-				<%= button_to "Delete Listing", listing_path(list), method: :delete, data: {confirm: 'Are you sure?'} %>
-			<% end %>
+	<% end %>
+	<% list.images.each do |image|  %>
+		<%= image_tag(image.thumb.url) %>
+	<% end %><br/>
+	<% if logged_in? %>
+		<% if current_user.id == list.user_id %>
+			<%= link_to 'Edit Listing', edit_listing_path(list) %>
+			<%= button_to "Delete Listing", listing_path(list), method: :delete, data: {confirm: 'Are you sure?'} %>
 		<% end %>
 	<% end %>
 <% end %>	
@@ -20,17 +23,3 @@
 
 
 <%= will_paginate @listings %>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

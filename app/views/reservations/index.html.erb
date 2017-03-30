@@ -1,0 +1,12 @@
+
+<% @reservations.each do |reservation| %>
+	<hr>
+	<%= link_to Listing.find(reservation.listing_id).name, reservation_path(reservation) %>
+	<% for att in reservation.attributes.keys %>
+		<p><%= att.humanize %>: <%= reservation.attributes[att].to_s %></p>
+	<% end %>
+<% end %>
+
+
+
+<%= will_paginate @listings %>

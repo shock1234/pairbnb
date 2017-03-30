@@ -20,14 +20,35 @@ gem 'omniauth-facebook'
 #paginate
 gem 'will_paginate', '~> 3.1.0'
 
+#file upload
+gem 'carrierwave', '~> 1.0'
+#adding different versions for the same file (e.g. thumbnails)
+#Note: You must have Imagemagick and MiniMagick installed to do image resizing. MiniMagick is a Ruby interface for Imagemagick which is a C program. This is why MiniMagick fails on 'bundle install' without Imagemagick installed.
+gem 'mini_magick'
+#Amazon S3
+gem 'carrierwave-aws'
+
+# Use SCSS for stylesheets
+gem 'sass-rails', '~> 5.0'
+# Use bootstap-sass gem to enable bootstrap and scss
+gem 'bootstrap-sass', '~> 3.3.6'
+#Tooltips and popovers depend on tether for positioning
+source 'https://rails-assets.org' do
+  gem 'rails-assets-tether', '>= 1.3.3'
+end
+
+gem 'jquery-ui-rails'
+
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.2'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
