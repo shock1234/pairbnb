@@ -4,38 +4,26 @@
 <div class='col-md-4'>
 
 <%= link_to Listing.find(@reservation.listing_id).name, listing_path(@reservation.listing_id) %>
+
 <p><b>Booking Id:</b> <%= @reservation.id %></p>
 <p><b>Check In:</b> <%= @reservation.booking_start.strftime('%a, %d %b %Y') %></p>
 <p><b>Check Out:</b> <%= @reservation.booking_end.strftime('%a %d %b %Y') %></p>
 <p><b>Guest Number:</b> <%= @reservation.num_guests %></p>
 <p><b>Price:</b> RM<%= '%.2f' % @reservation.total_price %></p>
+
 <%= button_to "Cancel Reservation", reservation_path(@reservation), method: "delete", 'data-confirm' => 'Are you sure?' %>
 
-<%= render 'reservations/braintree' %>
 
-<% if false %>
+<h3>Payment Status:</h3>
 
-
-<h1>Make Paymnet</h1>
-
-<% if @reservation.payment_status == "unpaid" %>
-
-	<p><b>Name:</b> <%= @reservation.listing.name %></p>
-	<p><b>Check In:</b> <%= @reservation.booking_start %></p>
-	<p><b>Check Out:</b> <%= @reservation.booking_end %></p>
-
-
+<% if @reservation.payment_status == 0 %>
+	<p>Unpaid.</p>
+	<p>Please Make Your Payment</p><br/>
+	<%= render 'reservations/braintree' %>
 <% else %>
-		<h1>Hi <%= @reservation.user.email %></h1>
-		<h2>Your booking for <%= @reservation.listing.title %> from <%= @reservation.booking_start %> to <%= @reservation.booking_end %> has been <%= @reservation.payment_status %></h2>
+	<p>Paid.</p>
 <% end %>
 
-
-<% end %>
-
-
 </div>
-
 </div>
-
 

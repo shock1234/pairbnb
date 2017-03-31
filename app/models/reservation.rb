@@ -1,4 +1,7 @@
 class Reservation < ApplicationRecord
+
+	enum payment_status: [:unpaid, :paid]
+	
 	validate :room_available, :check_max_guests
 
 	belongs_to :user

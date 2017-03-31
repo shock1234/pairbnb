@@ -7,6 +7,12 @@
 	<p><b>Check Out:</b> <%= reservation.booking_end.strftime('%a %d %b %Y') %></p>
 	<p><b>Guest Number:</b> <%=reservation.num_guests %></p>
 	<p><b>Price:</b> RM<%= '%.2f' % reservation.total_price %></p>
+	
+	<% if reservation.payment_status == "unpaid" %>
+		<%= link_to "Unpaid. Make Payment.", reservation_path(reservation) %>
+	<% else %>
+		<%= link_to "Paid.", reservation_path(reservation) %>
+	<% end %>
 	<%= button_to "Cancel Reservation", reservation_path(reservation), method: "delete", 'data-confirm' => 'Are you sure?' %>
 <% end %>
 

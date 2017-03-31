@@ -1,5 +1,5 @@
 class ReservationsController < ApplicationController
-	before_action :set_reservation, only: [:show, :destroy]
+	before_action :set_reservation, only: [:show, :destroy, :checkout]
 
 	def create
 		@reservation = current_user.reservations.new(reservation_params)
@@ -38,10 +38,13 @@ class ReservationsController < ApplicationController
 			}
 			)
 		if result.success?
-			@reservation.update(payment_status: 1)
-			redirect_to :root, flash: { success: "Transaction successful!" }
+			# @reservation.update(payment_status: 1) #will not work because failed in validation
+			@reservation.update_attribute('payment_status', 1) #bypass validation. Or @reservation.payment_status = 1; @reservation.save(:validate => false)
+			flash[:success] = "Transaction Successful!"
+			redirect_to reservation_path(@reservation)
 		else
-			redirect_to :root, flash: { error: "Transaction failed. Please try again." }
+			flash[:error] = "Transaction failed. Please try again."
+			redirect_to reservation_path(@reservation)
 		end
 
 	end
@@ -53,7 +56,7 @@ class ReservationsController < ApplicationController
 	private
 
 	def reservation_params
-		params.require(:reservation).permit(:listing_id, :booking_start, :booking_end, :num_guests)
+		params.require(:reservation).permit(:listing_id, :booking_start, :booking_end, :num_guests, :payment_status)
 	end
 
 	def set_reservation
