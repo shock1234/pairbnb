@@ -1,10 +1,14 @@
 class ReservationsController < ApplicationController
 	before_action :set_reservation, only: [:show, :destroy, :checkout]
+	before_action :set_mailer, only: [:create]
 
 	def create
 		@reservation = current_user.reservations.new(reservation_params)
 		if @reservation.save
-			flash[:notice] = "successful"
+			flash[:success] = "Reservation Successful!"
+			# reservation_email(customer, host, listing, reservation)
+			# Tell the ReservationMailer to send an email after save
+			ReservationMailer.reservation_email(@customer, @host, @listing, @reservation).deliver_now
 			# redirect_to @reservation.user #redirect to user profile
 			redirect_to reservation_path(@reservation) #redirec to reservation#show
 		else
@@ -28,6 +32,7 @@ class ReservationsController < ApplicationController
 	end
 
 	def checkout
+		@reservation = Reservation.find(params[:id])
 		nonce_form_the_client = params[:checkout_form][:payment_method_nonce]
 
 		result = Braintree::Transaction.sale(
@@ -46,9 +51,7 @@ class ReservationsController < ApplicationController
 			flash[:error] = "Transaction failed. Please try again."
 			redirect_to reservation_path(@reservation)
 		end
-
 	end
-
 
 
 
@@ -61,6 +64,12 @@ class ReservationsController < ApplicationController
 
 	def set_reservation
 		@reservation = Reservation.find(params[:id])
+	end
+
+	def set_mailer  # reservation_email(customer, host, listing, reservation)
+		@customer = User.find(current_user.id)
+		@listing = Listing.find(params[:reservation][:listing_id])
+		@host = User.find(@listing.user_id) 
 	end
 
 end

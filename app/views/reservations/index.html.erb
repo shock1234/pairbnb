@@ -8,7 +8,7 @@
 	<p><b>Guest Number:</b> <%=reservation.num_guests %></p>
 	<p><b>Price:</b> RM<%= '%.2f' % reservation.total_price %></p>
 	
-	<% if reservation.payment_status == "unpaid" %>
+	<% if reservation.payment_status == 0 %>
 		<%= link_to "Unpaid. Make Payment.", reservation_path(reservation) %>
 	<% else %>
 		<%= link_to "Paid.", reservation_path(reservation) %>

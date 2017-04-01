@@ -13,10 +13,8 @@
 //= require turbolinks
 //= require jquery
 //= require jquery_ujs
-//= require tether
 //= require bootstrap-sprockets
 //= require moment
 //= require bootstrap-datetimepicker
+//= require tether
 //= require_tree .
-
-console('hello')
