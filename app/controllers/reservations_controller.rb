@@ -1,14 +1,15 @@
 class ReservationsController < ApplicationController
 	before_action :set_reservation, only: [:show, :destroy, :checkout]
-	before_action :set_mailer, only: [:create]
 
 	def create
 		@reservation = current_user.reservations.new(reservation_params)
 		if @reservation.save
 			flash[:success] = "Reservation Successful!"
-			# reservation_email(customer, host, listing, reservation)
+			reservation_id = @reservation.id
 			# Tell the ReservationMailer to send an email after save
-			ReservationMailer.reservation_email(@customer, @host, @listing, @reservation).deliver_now
+			# ReservationMailer.reservation_email(@customer, @host, @listing, @reservation).deliver_now
+			# Using Sidekiq
+			ReservationWorker.perform_async(reservation_id)
 			# redirect_to @reservation.user #redirect to user profile
 			redirect_to reservation_path(@reservation) #redirec to reservation#show
 		else
@@ -64,12 +65,6 @@ class ReservationsController < ApplicationController
 
 	def set_reservation
 		@reservation = Reservation.find(params[:id])
-	end
-
-	def set_mailer  # reservation_email(customer, host, listing, reservation)
-		@customer = User.find(current_user.id)
-		@listing = Listing.find(params[:reservation][:listing_id])
-		@host = User.find(@listing.user_id) 
 	end
 
 end

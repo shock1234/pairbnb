@@ -30,6 +30,9 @@ Rails.application.routes.draw do
 
   post "/checkout_form" => "reservations#checkout", as: "checkout"
 
-
+  #localhost:3000/sidekiq, warning:anyone can access to this
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+  #in terminal pls run 
 
 end

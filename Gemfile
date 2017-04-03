@@ -39,11 +39,21 @@ gem 'bootstrap-sass', '~> 3.3.6'
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.3.3'
 end
-
+#datepicker gems
 gem 'jquery-ui-rails'
-
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
+
+#mailer
+#letter_opener allows us to simulate the process of sending the email by creating it as a temporary file. That way we will avoid sending the actual email over the network, which is messy and brittle to test.
+gem "letter_opener", :group => :development
+#Launchy automatically opens the created temp file in a browser window so that the sending process becomes automatic and we have real-time confirmation that the email was sent correctly.
+gem "launchy"
+
+#background job
+gem 'sidekiq'
+# gem 'sinatra', :require => nil #sidekiq uses sinatra, set require to nil or else server wont run
+gem 'sinatra', github: 'sinatra/sinatra' #bundle sinatra from source, bcs there will be dependency issue with older version
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.2'
