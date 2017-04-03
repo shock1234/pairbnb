@@ -35,8 +35,12 @@ class ListingsController < ApplicationController
   end
 
   def update
-    @listing.update(listing_params)
-    redirect_to edit_listing_path(@listing)
+    if @listing.update(listing_params)
+      redirect_to @listing
+    else
+      # redirect_to edit_listing_path(@listing)
+      render 'edit'
+    end
   end
 
   def destroy

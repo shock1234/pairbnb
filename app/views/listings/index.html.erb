@@ -6,7 +6,7 @@
 
 <% @listings.each do |list| %>
 	<hr>
-	<%= link_to list.name, listing_path(list) %>
+	<%= link_to list.name, list %>
 
 	<% for att in list.attributes.except("created_at", "id", "user_id", "name", "images", "price").keys %>
 		<p><%= att.humanize %>: <%= list.attributes[att].to_s %></p>

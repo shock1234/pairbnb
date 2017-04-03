@@ -2,7 +2,7 @@
 <% @reservations.each do |reservation| %>
 	<hr>
 	<%= link_to reservation.listing.name, listing_path(reservation.listing_id) %>
-	<p><b>Booking Id:</b> <%= link_to reservation.id, reservation_path(reservation) %></p>
+	<p><b>Booking Id:</b> <%= link_to reservation.id, reservation %></p>
 	<p><b>Check In:</b> <%= reservation.booking_start.strftime('%a, %d %b %Y') %></p>
 	<p><b>Check Out:</b> <%= reservation.booking_end.strftime('%a %d %b %Y') %></p>
 	<p><b>Guest Number:</b> <%=reservation.num_guests %></p>
