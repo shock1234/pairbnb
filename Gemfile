@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 # Declare a ruby version for heroku deploy
-ruby '2.4.0'
+ruby "2.4.0"
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
